@@ -18,12 +18,12 @@ $service_result = $conexion->query($service_sql);
 <body>
     <h2>Hotel Client Registration</h2>
     <form action="register.php" method="post">
+        <label for="nom">CIN:</label>
+        <input type="text" id="cin" name="cin" required><br><br>
         <label for="nom">First Name:</label>
         <input type="text" id="nom" name="nom" required><br><br>
         <label for="prenom">Last Name:</label>
         <input type="text" id="prenom" name="prenom" required><br><br>
-        <label for="tele">Phone:</label>
-        <input type="text" id="tele" name="tele" required><br><br>
 
         <label for="chambre">Chambre:</label> <br>
         <select name="chambre" id="chambre" required>
@@ -36,12 +36,18 @@ $service_result = $conexion->query($service_sql);
         </select>
         <br>
 <br>
+        <label for="date_debut">Date debut:</label>
+        <input type="date" id="date_debut" name="date_debut" required><br><br>
+        <label for="date_fin">Date fin:</label>
+        <input type="date" id="date_fin" name="date_fin" required><br><br>
+
         <label for="service">Service:</label> 
         <?php while($row=$service_result->fetch(PDO::FETCH_ASSOC)): ?>
-          <br>  <input type="checkbox" id="service_<?php echo $row['id']; ?>" value=" <?php $row['id']?>" name="services"> 
-            <label for="service_<?php echo $row['id']; ?>"> <?php echo $row['nom'] . $row['prix'] .'DH'?> </label>
-        <?php  endwhile;?>
             <br>
+            <input type="checkbox" id="service_<?php echo $row['id']; ?>" value="<?php echo $row['id']; ?>" name="services[]"> 
+            <label for="service_<?php echo $row['id']; ?>"><?php echo $row['nom'] . ' - ' . $row['prix'] . ' DH'; ?></label>
+        <?php endwhile; ?>
+        <br>
 
         <input type="submit" value="Register">
     </form>
